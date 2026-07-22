@@ -65,3 +65,55 @@ No actionable P0, P1, or P2 discrepancies remain. The retained P3 difference is 
 - [x] Clear console errors/warnings and horizontal overflow.
 
 final result: passed
+
+---
+
+# Design QA — Search dialog close button
+
+## Source and implementation
+
+- Source visual truth: `C:\Users\amirr\AppData\Local\Temp\codex-clipboard-19794492-236d-4712-95c4-3ea8ed7b5479.png`
+- Browser-rendered implementation: `H:\Website\Movie Stream\artifacts\search-dialog-close-desktop.png`
+- Mobile implementation: `H:\Website\Movie Stream\artifacts\search-dialog-close-mobile.png`
+- Combined comparison evidence: `H:\Website\Movie Stream\artifacts\search-dialog-close-comparison.png`
+- Viewport: 595 × 253 CSS px for the source-sized desktop check; 375 × 667 CSS px for the mobile check.
+- Pixel dimensions and density: source 595 × 253, desktop implementation 595 × 253, mobile implementation 375 × 667, all at device scale factor 1; no density normalization was needed.
+- State: dark RTL homepage with the empty search dialog open.
+
+## Comparison evidence
+
+The source and desktop implementation were combined side by side at equal pixel dimensions. The focused search-header region is readable at 1:1, so a separate crop was not needed. In the source, the close button is absolutely positioned over the input border. In the implementation, it occupies a dedicated 28 × 28 px flex item beside the 44 px-high input with an 8 px gap. Browser geometry confirmed no overlap at either viewport.
+
+The surrounding dialog width and changing hero background are existing responsive/dynamic product behavior and were not part of this focused placement fix.
+
+## Required fidelity surfaces
+
+- Fonts and typography: the existing Vazirmatn search placeholder, size, weight, line height, truncation, and RTL alignment are unchanged.
+- Spacing and layout rhythm: the close control is vertically centered in the input row, retains the existing 12 px container padding, and has a stable gap from the input on desktop and mobile.
+- Colors and visual tokens: existing surface, border, muted icon, hover, and focus colors are preserved.
+- Image quality and asset fidelity: no image assets were changed; the existing Lucide close icon remains sharp and consistent with the search icon.
+- Copy and content: the placeholder and search content are unchanged; the close control now has the Persian accessible label `بستن جستجو`.
+
+## Primary interactions tested
+
+- Opened search from the header at 595 × 253 and 375 × 667.
+- Confirmed the input and close-button rectangles do not intersect at either viewport.
+- Clicked the close button and confirmed the dialog becomes hidden.
+- Checked browser console errors: none found.
+
+## Comparison history
+
+- P2 — The close button overlapped the search input and its border because it was absolutely positioned without reserved RTL space. Disabled the generic floating close control for this dialog and placed a dedicated accessible close button in the search row. Post-fix evidence: the combined comparison and desktop/mobile screenshots above; measured overlap is `false` in both viewports.
+
+## Findings
+
+No actionable P0, P1, or P2 discrepancies remain for the requested close-button placement. No P3 follow-up is required.
+
+## Implementation checklist
+
+- [x] Keep the close button inside the search header flow.
+- [x] Preserve RTL order and responsive sizing.
+- [x] Preserve keyboard/accessibility semantics.
+- [x] Verify close behavior and console state.
+
+final result: passed

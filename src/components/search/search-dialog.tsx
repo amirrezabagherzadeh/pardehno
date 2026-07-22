@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Clock3, Film, LoaderCircle, Search, Trash2, Tv, UserRound } from "lucide-react";
+import { Clock3, Film, LoaderCircle, Search, Trash2, Tv, UserRound, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/command";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -125,24 +126,40 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="top-[12vh] max-w-2xl translate-y-0 overflow-hidden border-white/10 bg-[#11151f] p-0 sm:top-[16vh]">
+      <DialogContent
+        showCloseButton={false}
+        className="top-[12vh] max-w-2xl translate-y-0 overflow-hidden border-white/10 bg-[#11151f] p-0 sm:top-[16vh]"
+      >
         <DialogHeader className="sr-only">
           <DialogTitle>جستجو در پرده‌نو</DialogTitle>
           <DialogDescription>جستجوی فیلم، سریال و بازیگر</DialogDescription>
         </DialogHeader>
         <Command shouldFilter={false} className="rounded-none bg-transparent p-0">
-          <div className="border-b border-white/10 p-3">
-            <CommandInput
-              autoFocus
-              value={query}
-              onValueChange={setQuery}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" && results.length === 0) openSearchPage();
-              }}
-              placeholder="نام فیلم، سریال یا بازیگر…"
-              className="h-11 text-base"
-              aria-label="عبارت جستجو"
-            />
+          <div className="flex items-center gap-2 border-b border-white/10 p-3">
+            <div className="min-w-0 flex-1">
+              <CommandInput
+                autoFocus
+                value={query}
+                onValueChange={setQuery}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && results.length === 0) openSearchPage();
+                }}
+                placeholder="نام فیلم، سریال یا بازیگر…"
+                className="h-11 text-base"
+                aria-label="عبارت جستجو"
+              />
+            </div>
+            <DialogClose asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                className="shrink-0 text-muted-foreground hover:bg-white/10 hover:text-foreground"
+                aria-label="بستن جستجو"
+              >
+                <X aria-hidden />
+              </Button>
+            </DialogClose>
           </div>
           <CommandList className="max-h-[65vh] p-2">
             <div className="sr-only" aria-live="polite">

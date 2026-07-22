@@ -9,7 +9,7 @@ export const siteConfig = {
     { href: "/movies", label: "فیلم‌ها" },
     { href: "/tv", label: "سریال‌ها" },
     { href: "/top", label: "برترین‌ها" },
-    { href: "/movies?sort=primary_release_date.desc", label: "تازه‌ها" },
+    { href: "/movies?sort=primary_release_date.desc", label: "جدیدترین‌ها" },
   ],
 } as const;
 

@@ -44,8 +44,8 @@ export function HeroBanner({ items }: { items: MediaSummary[] }) {
           <h1 id="hero-title" className="text-balance text-4xl font-black leading-[1.18] tracking-tight text-white md:text-6xl lg:text-7xl">
             {item.title}
           </h1>
-          <Button size="lg" asChild className="mt-7 min-w-52 text-base font-black shadow-[0_12px_32px_rgba(33,167,255,0.22)]">
-            <Link href={mediaHref(item.mediaType, item.id, item.title)}><Info aria-hidden /> مشاهده جزئیات</Link>
+          <Button size="lg" asChild className="mt-7 h-11 min-w-52 text-base font-black shadow-[0_12px_32px_rgba(33,167,255,0.22)]">
+            <Link href={mediaHref(item.mediaType, item.id, item.title)}><Info aria-hidden /> مشاهده {item.mediaType === "movie" ? "فیلم" : "سریال"}</Link>
           </Button>
         </div>
       </div>

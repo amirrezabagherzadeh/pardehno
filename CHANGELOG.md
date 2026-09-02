@@ -4,6 +4,8 @@ All notable changes should be recorded here. The project does not currently expo
 
 ## Unreleased
 
+## 0.1.1 — 2026-09-02
+
 ### Documentation
 
 - Added structured project documentation.

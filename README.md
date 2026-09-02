@@ -1,92 +1,171 @@
-# پرده‌نو — Persian RTL Movie Discovery
+<div align="center">
+  <img src="public/images/pardehno-mark.png" alt="Pardeh No logo" width="112" />
 
-پرده‌نو یک وب‌اپ کامل و واکنش‌گرا برای کشف فیلم و سریال است. رابط کاربری از ابتدا برای زبان فارسی و جهت راست‌به‌چپ طراحی شده و اطلاعات واقعی را از TMDB دریافت می‌کند.
+  <h1>پرده‌نو <br /> Pardeh No</h1>
 
-> این پروژه سرویس پخش ویدئو نیست. دکمه‌های «تماشای تریلر» فقط ویدئوهای رسمی YouTube ثبت‌شده در TMDB را نمایش می‌دهند.
+  <p><strong>A cinematic, RTL-first Persian discovery experience for movies and TV.</strong></p>
 
-## راه‌اندازی
+  <p>
+    <a href="#technology"><img src="https://img.shields.io/badge/Next.js-16.3-111827?logo=nextdotjs&logoColor=white" alt="Next.js 16.3" /></a>
+    <a href="#technology"><img src="https://img.shields.io/badge/React-19-149eca?logo=react&logoColor=white" alt="React 19" /></a>
+    <a href="#technology"><img src="https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white" alt="TypeScript strict" /></a>
+    <a href="#development-and-validation"><img src="https://img.shields.io/badge/tests-Vitest_%2B_Playwright-6e56cf?logo=vitest&logoColor=white" alt="Vitest and Playwright" /></a>
+  </p>
 
-نیازمندی‌ها: Node.js 20 یا جدیدتر و یک کلید TMDB.
+  <p>
+    <a href="#installation">Get started</a> ·
+    <a href="#features">Explore features</a> ·
+    <a href="#documentation">Read the docs</a>
+  </p>
+</div>
+
+<p dir="rtl" align="center">پرده‌نو یک تجربهٔ سینمایی، واکنش‌گرا و راست‌به‌چپ برای کشف فیلم و سریال است.</p>
+
+Pardeh No (`پرده‌نو`) is a responsive Persian web application for discovering movies, TV shows, seasons, episodes, and people. It combines localized TMDB data with a dark, RTL-first interface and browser-local personal features.
+
+> Pardeh No is not a video streaming or download service. “Watch Trailer” embeds only YouTube videos returned by TMDB, and availability information links to external legal providers.
+
+## Features
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🎬 Discover</h3>
+      <p>Browse trending, popular, current, upcoming, top-rated, and genre collections. Fine-tune results by media type, sort, language, country, genre, year, family suitability, and artwork availability.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🔎 Explore deeply</h3>
+      <p>Open rich title pages for metadata, cast and crew, galleries, seasons, episodes, recommendations, providers, and TMDB-listed trailers.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <h3>🇮🇷 Persian by design</h3>
+      <p>RTL navigation, Persian canonical slugs, localized catalog data, dynamic metadata, Open Graph previews, and structured data are built in.</p>
+    </td>
+    <td valign="top">
+      <h3>✨ Personal, private, local</h3>
+      <p>Keep a watchlist, recently viewed titles, recent searches, and comments in your browser with no account or server-side profile required.</p>
+    </td>
+  </tr>
+</table>
+
+> **Trailer-only experience:** Pardeh No does not stream or download full titles. Trailers are limited to TMDB-listed YouTube videos, and availability links point to external legal providers.
+
+## Technology
+
+- Next.js `16.3.0-canary.93` App Router and React 19
+- TypeScript 5 in strict mode
+- Tailwind CSS 4 with CSS-variable tokens
+- Radix UI/shadcn primitives and Lucide icons
+- Self-hosted Vazirmatn variable font
+- Vitest, Testing Library, and Playwright
+- TMDB, optional OMDb, MyMemory translation, YouTube privacy-enhanced embeds, and provider data supplied through TMDB
+
+## Prerequisites
+
+- Node.js 20.9.0 or later (the installed Next.js package declares `>=20.9.0`)
+- npm
+- One TMDB credential: a read access token or a v3 API key
+
+## Installation
 
 ```bash
-npm install
-Copy-Item .env.example .env.local
-npm run dev
+npm ci
 ```
 
-سپس `http://localhost:3000` را باز کنید. یکی از دو روش احراز هویت TMDB کافی است:
+Create `.env.local` manually at the repository root. Do not commit real values:
 
 ```dotenv
-# پیشنهادشده: TMDB Read Access Token
+# Provide one of these server-only credentials.
 TMDB_READ_ACCESS_TOKEN=
-
-# یا TMDB v3 API Key
 TMDB_API_KEY=
 
+# Optional integrations and overrides.
+OMDB_API_KEY=
 TMDB_BASE_URL=https://api.themoviedb.org/3
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+OUTBOUND_PROXY_URL=
+PERSIAN_TRANSLATION_ENABLED=true
+PERSIAN_TRANSLATION_EMAIL=
 ```
 
-توکن‌ها فقط در Server Components و Route Handlers استفاده می‌شوند و به کد مرورگر راه پیدا نمی‌کنند.
+`TMDB_READ_ACCESS_TOKEN`, `TMDB_API_KEY`, `OMDB_API_KEY`, `OUTBOUND_PROXY_URL`, and `PERSIAN_TRANSLATION_EMAIL` are read only by server modules. `NEXT_PUBLIC_SITE_URL` is intentionally public and is used as the metadata base URL.
 
-اگر اتصال Node.js در شبکه شما از پراکسی سیستم عبور نمی‌کند، `OUTBOUND_PROXY_URL` را با نشانی پراکسی HTTP(S) تنظیم کنید؛ این مقدار نیز فقط در سرور خوانده می‌شود.
+The working tree currently has no `.env.example`, although Git history contains one. **Needs confirmation:** whether its deletion is intentional. Restore or recreate it before instructing contributors to copy it.
 
-پرده‌نو داده‌های فهرست و جزئیات را هم‌زمان با زبان‌های `fa-IR` و `en-US` از TMDB می‌گیرد. ترجمه رسمی فارسی TMDB در اولویت است؛ اگر توضیح فارسی موجود نباشد، متن انگلیسی TMDB به‌صورت server-side و cache‌شده به فارسی ترجمه می‌شود. این رفتار با `PERSIAN_TRANSLATION_ENABLED=false` قابل غیرفعال‌کردن است.
-
-## فرمان‌ها
+## Development and validation
 
 ```bash
-npm run dev          # سرور توسعه
-npm run build        # بیلد production
-npm run start        # اجرای production build
-npm run lint         # ESLint
-npm run typecheck    # تولید route types و بررسی TypeScript
-npm test             # تست‌های واحد Vitest
-npm run test:e2e     # تست‌های Playwright دسکتاپ و موبایل
-npm run test:e2e:states # حالت‌های empty/loading/error و تعامل‌ها
-npm run test:e2e:live # اجرای smoke test روی TMDB زنده
-npm run screenshots  # تصاویر مرجع مسیرهای اصلی
+npm run dev             # Development server
+npm run lint            # ESLint over the repository
+npm run typecheck       # Generate Next route types, then run tsc --noEmit
+npm test                # Vitest unit suite
+npm run test:watch      # Vitest watch mode
+npm run test:e2e        # Deterministic desktop and mobile Playwright suite
+npm run test:e2e:states # Focused interaction/state suite
+npm run test:e2e:live   # Core flow against live upstream services
+npm run screenshots     # Capture key route screenshots
+npm run build           # Optimized production build
+npm run start           # Serve the completed production build
 ```
 
-تست‌های پیش‌فرض Playwright از یک سرور محلی سازگار با قرارداد TMDB استفاده می‌کنند تا نتیجه‌ها قطعی و مستقل از محدودیت شبکه باشند. فرمان `test:e2e:live` همان مسیرهای اصلی را با اعتبارنامه واقعی `.env.local` بررسی می‌کند.
+The default Playwright configuration starts both a local TMDB-compatible fixture on port `4010` and Next.js on port `3000`. The live configuration requires valid credentials and upstream network access.
 
-## مسیرها
+## Data behavior
 
-- `/` — هوم سینمایی، عنوان ویژه و ردیف‌های محتوایی
-- `/movies` و `/tv` — مرور و فیلتر بر اساس ژانر، سال، امتیاز، رأی و زبان
-- `/genre/[genreId]/[slug]` — صفحه ژانر
-- `/movie/[id]/[slug]` و `/tv/[id]/[slug]` — جزئیات کامل، عوامل، گالری و پیشنهادها
-- `/tv/[id]/season/[seasonNumber]` — فصل و قسمت‌ها
-- `/person/[id]/[slug]` — بیوگرافی و آثار شخص
-- `/search` — جستجوی فیلم، سریال و افراد
-- `/watchlist` و `/recently-viewed` — داده‌های محلی کاربر
-- `/about`، `/privacy`، `/terms` و `/copyright` — صفحات اطلاعاتی و حقوقی
+TMDB requests are made in `fa-IR` and `en-US`, then merged so missing Persian fields can fall back to English data. Missing English text is translated server-side through MyMemory unless `PERSIAN_TRANSLATION_ENABLED=false`; translation failures return the original text. List, detail, genre, video, OMDb, and translation calls use different revalidation periods, while search and the client-facing discovery API opt out of response caching.
 
-## معماری
+The optional `OUTBOUND_PROXY_URL` is used by TMDB and MyMemory requests. The OMDb client currently uses the standard server `fetch` path.
 
-- Next.js App Router + TypeScript strict + Tailwind CSS 4
-- کامپوننت‌های Radix/shadcn با `DirectionProvider` راست‌به‌چپ
-- لایه TMDB در `src/lib/tmdb` با خطاهای تایپ‌شده، کش قابل بازاعتبارسنجی و ادغام داده فارسی/انگلیسی
-- Server Components برای واکشی اولیه؛ Client Components فقط برای جستجوی آنی، دیالوگ‌ها و وضعیت محلی
-- `localStorage` برای فهرست من، موارد اخیر، عبارت‌های جستجو و دیدگاه‌ها
-- متادیتای پویا، canonical URL، Open Graph و صفحات loading/error/not-found
-- فونت Vazirmatn به‌صورت self-hosted برای بیلد مستقل از شبکه Google Fonts
+## Project structure
 
-## رفتار داده و خطا
+```text
+src/
+├── app/                 # Routes, metadata, error/loading states, API handlers
+├── components/
+│   ├── browse/          # Filters and infinite discovery grid
+│   ├── details/         # Movie/TV detail composition
+│   ├── layout/          # Header, footer, and legal layout
+│   ├── media/           # Cards, carousels, trailers, watchlist, sharing
+│   ├── search/          # Instant search dialog
+│   ├── storage/         # Browser-local collection pages
+│   └── ui/              # Shared Radix/shadcn primitives
+└── lib/
+    ├── storage/         # localStorage-backed external stores
+    └── tmdb/            # Upstream client, queries, transforms, and types
+tests/
+├── unit/
+├── e2e/
+└── fixtures/
+```
 
-- فهرست‌ها و جزئیات TMDB با TTL کش می‌شوند؛ جستجو `no-store` است.
-- ترجمه فارسی TMDB در اولویت است؛ توضیحات انگلیسی ناقص با سرویس ترجمه عمومی MyMemory به فارسی برگردان و برای ۳۰ روز cache می‌شوند.
-- مسیرهای `/movies` و `/tv` از Discover API واقعی TMDB، فیلتر کشور/زبان/ژانر/سال/رده خانوادگی و صفحه‌بندی تا سقف رسمی ۵۰۰ صفحه استفاده می‌کنند.
-- تریلرها فقط از نتیجه‌های YouTube ثبت‌شده در TMDB انتخاب می‌شوند و ویدئوهای رسمی و نوع `Trailer` در اولویت هستند.
-- خطای پیکربندی، محدودیت نرخ، شبکه و پاسخ نامعتبر به خطاهای کاربرپسند تبدیل می‌شود.
-- آیتم بدون تصویر از دارایی محلی `public/images/fallback-poster.png` استفاده می‌کند.
+## Documentation
 
-## محدودیت‌های عمدی
+- [Architecture](docs/architecture.md)
+- [Product use cases](docs/use-cases.md)
+- [Design guidelines](docs/design-guidelines.md)
+- [Engineering rules](docs/engineering-rules.md)
+- [Changelog](CHANGELOG.md)
+- [AI agent guide](AGENTS.md)
 
-- ورود کاربر و همگام‌سازی ابری وجود ندارد؛ داده‌های شخصی همین مرورگر نگه‌داری می‌شوند.
-- دیدگاه‌ها محلی هستند و به سرور ارسال نمی‌شوند.
-- دسترس‌پذیری و طراحی برای اندازه‌های 320px تا دسکتاپ عریض بررسی شده، اما کیفیت تصویر به داده TMDB وابسته است.
+## Build and deployment
 
-## اعتبار محتوا
+`npm run build` produces the production application and `npm run start` serves it as a Node.js process. `next.config.ts` allows TMDB images and conditionally disables image optimization in fixture/proxy modes. No Dockerfile or committed CI/CD workflow is present. Local Vercel project metadata is ignored.
 
-This product uses the TMDB API but is not endorsed or certified by TMDB. پوسترها، تصاویر، اطلاعات عوامل و ویدئوها متعلق به صاحبان حقوق مربوطه هستند.
+**Needs confirmation:** the intended production hosting target, environment-variable provisioning process, and CI release checks.
+
+## Current limitations
+
+- No authentication, database, backend user profile, or cross-device synchronization
+- Browser data is lost when site storage is cleared
+- Comments are local only; seeded sample comments are displayed when no saved list exists
+- “HD” filtering checks for both poster and backdrop paths, not source resolution
+- Movie quality labels and TV episode chips in the availability panel are explicitly presentational; full playback/download is unavailable
+- Search has no visible pagination controls, even though the page parameter is parsed
+- No structured logging, analytics, or monitoring integration is implemented
+- Upstream content, translations, image quality, and availability vary by provider data
+
+## Attribution
+
+This product uses the TMDB API but is not endorsed or certified by TMDB. Posters, images, metadata, credits, and videos belong to their respective rights holders. Watch-provider information exposed by TMDB includes JustWatch attribution and external links.

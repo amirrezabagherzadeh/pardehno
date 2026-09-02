@@ -21,6 +21,10 @@
 
 <p dir="rtl" align="center">پرده‌نو یک تجربهٔ سینمایی، واکنش‌گرا و راست‌به‌چپ برای کشف فیلم و سریال است.</p>
 
+<p align="center">
+  <img src="public/images/home-page.png" alt="Pardeh No home page with Persian RTL film discovery hero and featured titles" width="100%" />
+</p>
+
 Pardeh No (`پرده‌نو`) is a responsive Persian web application for discovering movies, TV shows, seasons, episodes, and people. It combines localized TMDB data with a dark, RTL-first interface and browser-local personal features.
 
 > Pardeh No is not a video streaming or download service. “Watch Trailer” embeds only YouTube videos returned by TMDB, and availability information links to external legal providers.
